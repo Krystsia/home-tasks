@@ -21,32 +21,22 @@ class Article {
     }
     
     constructTemplate(){
-        //let fragment = document.createDocumentFragment();
         let li = document.createElement('li');
         li.innerHTML = `<h2>${this.title}</h2>
-                            <p>${this.publishedData}</p>
-                            <a href="${this.url}">
-                                <img src="${this.sourceThumb.url}" style="width=${this.sourceThumb.width}; height=${this.sourceThumb.height}"/>
-                                <span>${this.abstract}<span>
-                            </a>`;
-        //fragment.appendChild(li);
+						<p>${this.publishedData}</p>
+						<a href="${this.url}">
+							<img src="${this.sourceThumb.url}" style="width=${this.sourceThumb.width}; height=${this.sourceThumb.height}"/>
+							<span>${this.abstract}<span>
+						</a>`;
+       
 		
-		
-		
-	document.querySelector('.articles').appendChild(li);
+		document.querySelector('.articles').appendChild(li);
         
 		setTimeout(() => {
-			debugger;
-			
 			li.classList.add('loaded');
 			this.a += 1000;
-		}, this.a);
-		
-		
-		
-        
+		}, this.a); 
     }
-    
 }
 
 function constructArcicle(article) {

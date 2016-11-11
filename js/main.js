@@ -1,32 +1,37 @@
-((w, d) => {
-	 url = "https://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/1.json";
-	url += '?api-key=49a7949204264b17adedf26fd79f3b12';
-
-	let articles;
-	
-	var form = document.querySelector('#news');
-		getData().then(function(response) { 
-            response.json().then(function(result){
-                mainData = new MainModel();
-                articles = mainData.mapData(result.results);
-                console.log(articles);
-                articles.forEach(function(article){
-                    constructArcicle(article);
-                    document.querySelector('.loader').style.opacity = "0";
-                    document.querySelector('.loader').style.display = "none";
-                    document.querySelector('.backdrop').style.opacity = "0";
-
-                })
-            })
-        });
-        d.querySelector('.loader').style.opacity = "1";
-        d.querySelector('.loader').style.display = "block";
-        d.querySelector('.backdrop').style.opacity = ".3";
-		e.preventDefault;
-	
-	
-	
+((d) => {
+	const apiKey = '?api-key=49a7949204264b17adedf26fd79f3b12';
+	let url = 'https://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/1.json' + apiKey,
+		articles;
+		
 	function getData() {
 		return fetch(url, {method:'GET', headers: {Accept: 'xyz'}})
 	}
-})(window, document);
+	
+	function constructArcicle(article) {
+		let newArticle = new Article(article);
+		newArticle.constructTemplate();
+	}
+
+	d.addEventListener('DOMContentLoaded', function() {
+		let backdrop = d.querySelector('.backdrop'),
+			loader = d.querySelector('.loader');
+		
+		getData().then(function(response) { 
+			response.json().then(function(result){
+				mainData = new MainModel();
+				articles = mainData.mapData(result.results);
+				
+				articles.forEach(function(article){
+					constructArcicle(article);
+
+					loader.style.opacity = '0';
+					loader.style.display = 'none';
+					backdrop.style.opacity = '0';
+					backdrop.style.display = 'none';
+				})
+			})
+		}, function() {
+			console.log(new Error('Server Error'));
+		});
+	});
+})(document);
