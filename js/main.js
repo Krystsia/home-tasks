@@ -1,6 +1,6 @@
 ((d) => {
-	const apiKey = '?api-key=49a7949204264b17adedf26fd79f3b12';
-	let url = 'https://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/1.json' + apiKey,
+	const apiKey = 'f1fdf072013c4b1e8b92b027a92a8977';
+	let url = 'https://newsapi.org/v1/articles?source=bbc-news&apiKey=' + apiKey,
 		articles;
 		
 	function getData() {
@@ -9,7 +9,7 @@
 	
 	function constructArcicle(article) {
 		let newArticle = new Article(article);
-		newArticle.constructTemplate();
+		return newArticle.constructTemplate();
 	}
 
 	d.addEventListener('DOMContentLoaded', function() {
@@ -17,12 +17,21 @@
 			loader = d.querySelector('.loader');
 		
 		getData().then(function(response) { 
+			
 			response.json().then(function(result){
+				console.log(result);
 				mainData = new MainModel();
-				articles = mainData.mapData(result.results);
+				articles = mainData.mapData(result.articles);
 				
 				articles.forEach(function(article){
-					constructArcicle(article);
+					article = constructArcicle(article);
+					
+					document.querySelector('.articles').appendChild(article);
+        
+					setTimeout(() => {
+						article.classList.add('loaded');
+						a += 1000;
+					}, a); 
 
 					loader.style.opacity = '0';
 					loader.style.display = 'none';

@@ -8,39 +8,32 @@ class MainModel {
     }
 }
 
+let a = 0;
+
 class Article {
     constructor(article){
         this.title = article.title;
-        this.publishedData = article.published_date;
-        this.media = article.media;
+        this.publishedAt = article.publishedAt;
+        this.description = article.description;
         this.url = article.url;
         this.source = article.source;
-        this.sourceThumb = article.media[0]['media-metadata'][2];
+        this.urlToImage = article.urlToImage;
         this.abstract = article.abstract;
-		this.a = 0;
+		this.author = article.author;
     }
     
     constructTemplate(){
         let li = document.createElement('li');
         li.innerHTML = `<h2>${this.title}</h2>
-						<p>${this.publishedData}</p>
+						<p>${this.publishedAt}</p>
 						<a href="${this.url}">
-							<img src="${this.sourceThumb.url}" style="width=${this.sourceThumb.width}; height=${this.sourceThumb.height}"/>
-							<span>${this.abstract}<span>
+							<img src="${this.urlToImage}"/>
+							<span>${this.description}<span>
 						</a>`;
-       
 		
-		document.querySelector('.articles').appendChild(li);
-        
-		setTimeout(() => {
-			li.classList.add('loaded');
-			this.a += 1000;
-		}, this.a); 
+		return li;
     }
 }
 
-function constructArcicle(article) {
-    let newArticle = new Article(article);
-    newArticle.constructTemplate();
-}
+
 
