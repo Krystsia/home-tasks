@@ -17,10 +17,11 @@ class Article {
         this.source = article.source;
         this.sourceThumb = article.media[0]['media-metadata'][2];
         this.abstract = article.abstract;
+		this.a = 0;
     }
     
     constructTemplate(){
-        let fragment = document.createDocumentFragment();
+        //let fragment = document.createDocumentFragment();
         let li = document.createElement('li');
         li.innerHTML = `<h2>${this.title}</h2>
                             <p>${this.publishedData}</p>
@@ -28,8 +29,21 @@ class Article {
                                 <img src="${this.sourceThumb.url}" style="width=${this.sourceThumb.width}; height=${this.sourceThumb.height}"/>
                                 <span>${this.abstract}<span>
                             </a>`;
-        fragment.appendChild(li);
-        document.querySelector('.articles').appendChild(fragment);
+        //fragment.appendChild(li);
+		
+		
+		
+	document.querySelector('.articles').appendChild(li);
+        
+		setTimeout(() => {
+			debugger;
+			
+			li.classList.add('loaded');
+			this.a += 1000;
+		}, this.a);
+		
+		
+		
         
     }
     

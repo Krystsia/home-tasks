@@ -1,11 +1,10 @@
-document.addEventListener('DOMContentLoaded', function() {
+((w, d) => {
 	 url = "https://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/1.json";
 	url += '?api-key=49a7949204264b17adedf26fd79f3b12';
 
 	let articles;
 	
 	var form = document.querySelector('#news');
-	form.onclick  = function(e) {
 		getData().then(function(response) { 
             response.json().then(function(result){
                 mainData = new MainModel();
@@ -20,17 +19,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             })
         });
-        document.querySelector('.loader').style.opacity = "1";
-        document.querySelector('.loader').style.display = "block";
-        document.querySelector('.backdrop').style.opacity = ".3";
+        d.querySelector('.loader').style.opacity = "1";
+        d.querySelector('.loader').style.display = "block";
+        d.querySelector('.backdrop').style.opacity = ".3";
 		e.preventDefault;
-	};
 	
 	
 	
 	function getData() {
 		return fetch(url, {method:'GET', headers: {Accept: 'xyz'}})
 	}
-})
-	
-	
+})(window, document);
