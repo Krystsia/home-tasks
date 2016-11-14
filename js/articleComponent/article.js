@@ -1,5 +1,5 @@
 class Article {
-    static init(data) {
+    static init(data, element) {
         let { articles: allArticles = [] } = data;
         let fragment = document.createDocumentFragment();
         allArticles = allArticles.map((article) => {
@@ -8,25 +8,11 @@ class Article {
             return new ArticleView(itemModel, itemCtrl).constructTemplate();
         });
         
-        let allArticlesFiltered = new Proxy(allArticles, {
-            enumerate(target) {
-                let tempString = '';
-                let newArrayOfArticles = target.filter((article) => {
-                    debugger;
-                    let filtered = (article.url === tempString);
-                    tempString = article.url;
-                    return filtered;
-                });
-                
-                return newArrayOfArticles[Symbol.iterator]();
-            }
-        })
-        
-        for(let li of allArticlesFiltered) {
+        for(let li of allArticles) {
             fragment.appendChild(li);
         } 
         
-        document.querySelector('.articles').appendChild(fragment);
+        document.querySelector(element).appendChild(fragment);
         hideLoader()
     }; 
 }

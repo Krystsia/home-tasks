@@ -3,7 +3,7 @@
     
     d.addEventListener('DOMContentLoaded', function() {
         mainRequest.getData().then((data) => { 
-            Article.init(data);    
+            Article.init(data, '.articles');    
         });
     })  
 })(document);
