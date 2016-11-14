@@ -5,7 +5,7 @@ class Article {
         allArticles = allArticles.map((article) => {
             let itemModel  = new ArticleModel(article);
             let itemCtrl = new ArticleCtrl(itemModel)
-            return new ArticleView(itemModel, itemCtrl).constructTemplate();
+            return new ArticleView().constructTemplate(itemCtrl);
         });
         
         for(let li of allArticles) {

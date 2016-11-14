@@ -1,6 +1,7 @@
 class ArticleCtrl {
-    constructor(model) {
+    constructor(model, view) {
         this.model = model;
+		
     }; 
 	
 	getDate(date) {
@@ -8,4 +9,3 @@ class ArticleCtrl {
 		return `${myDate.getDate()}.${myDate.getMonth() + 1}.${myDate.getFullYear()}`;
 	}
 }
-
