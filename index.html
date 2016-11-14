@@ -6,13 +6,29 @@
 	<title>News</title>
 </head>
 <body>
-	<header class="header">
-	   <h1>The BBC News</h1>
-	</header>
-    <div class="backdrop"></div>
-	<ul class="articles">
-		<div class="loader"></div>
-	</ul>
-	<script src="js/article_model.js"></script>
+    <main>
+        <header class="header">
+           <h1>The News</h1>
+
+           <ul class="navigation">
+               <li class="navigation__item active"><a href="#">The BBC News</a></li>
+               <li class="navigation__item"><a href="#">Other News</a></li>
+               <li class="navigation__item"><a href="#">Other</a>    </li>
+           </ul>
+
+        </header>
+        <div class="backdrop"></div>
+        <ul class="articles">
+            <div class="loader"></div>
+        </ul>
+   </main>
+    <footer><p>Powered by</p><a href="https://newsapi.org/"> NewsAPI.org</a></footer>
+    <script src="js/errorComponent/customErrorView.js"></script>
+    <script src="js/errorComponent/customError.js"></script>
+	<script src="js/getData_service.js"></script>
+	<script src="js/articleComponent/article_model.js"></script>
+	<script src="js/articleComponent/article_view.js"></script>
+	<script src="js/articleComponent/article_ctrl.js"></script>
+	<script src="js/articleComponent/article.js"></script>
 	<script src="js/main.js"></script>
 </html>
