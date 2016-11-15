@@ -4,8 +4,9 @@ class Article {
         let fragment = document.createDocumentFragment();
         allArticles = allArticles.map((article) => {
             let itemModel  = new ArticleModel(article);
-            let itemCtrl = new ArticleCtrl(itemModel)
-            return new ArticleView(itemModel, itemCtrl).constructTemplate();
+			let itemView = new ArticleView();
+            let itemCtrl = new ArticleCtrl(itemModel, itemView);
+			return itemCtrl.render();
         });
         
         for(let li of allArticles) {

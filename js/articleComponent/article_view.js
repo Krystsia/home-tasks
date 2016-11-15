@@ -1,16 +1,16 @@
 class ArticleView {
-    constructor(model, ctrl) {
-        this.model = model;
-        this.ctrl = ctrl;
-    }
-    
-    constructTemplate() {
+	getDate(date) {
+		let myDate = new Date(date);
+		return `${myDate.getDate()}.${myDate.getMonth() + 1}.${myDate.getFullYear()}`;
+	}
+	
+    constructTemplate(model) {
         let li = document.createElement('li');
-        li.innerHTML = `<h2><a href="${this.model.url}">${this.model.title}</a></h2>
-						<p>${this.ctrl.getDate(this.model.publishedAt)}</p>
-						<a href="${this.model.url}">
-							<img src="${this.model.urlToImage}" alt="image"/>
-							<span>${this.model.description}<span>
+        li.innerHTML = `<h2><a href="${model.url}">${model.title}</a></h2>
+						<p>${this.getDate(model.publishedAt)}</p>
+						<a href="${model.url}">
+							<img src="${model.urlToImage}" alt="image"/>
+							<span>${model.description}<span>
 						</a>`;
 		return li;
     }

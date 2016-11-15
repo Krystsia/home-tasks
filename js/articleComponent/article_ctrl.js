@@ -1,11 +1,11 @@
 class ArticleCtrl {
-    constructor(model) {
+    constructor(model, view) {
         this.model = model;
+		this.view = view;
+		
     }; 
 	
-	getDate(date) {
-		let myDate = new Date(date);
-		return `${myDate.getDate()}.${myDate.getMonth() + 1}.${myDate.getFullYear()}`;
+	render() {
+		return this.view.constructTemplate(this.model);
 	}
 }
-
