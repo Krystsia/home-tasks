@@ -23,8 +23,6 @@ header {
 }
 
 h1 {
-    font: 54p serif;
-    color: darkslategrey;
     margin-right: 30px;
     padding: 4px 8px; 
     border: 4px solid white;
@@ -46,7 +44,7 @@ ul {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    padding-left: 0;
+    padding: 0 12px;
 }
 
 li {
@@ -193,6 +191,7 @@ li.error-message p {
     align-items: center;
     width: 100%;
     margin: 0;
+    padding: 0 12px;
     
 }
 .navigation__item {
@@ -204,11 +203,12 @@ li.error-message p {
     border-left: 2px solid white;
     padding-left: 8px;
     margin-right: 18px;
+    white-space: nowrap;
 }
 
 .navigation__item a {
     text-decoration: none;
-    font-size: 24px;
+    font-size: 18px;
     color: white;
 }
 
@@ -227,7 +227,7 @@ footer {
     justify-content: flex-end;
     align-items: center;
     color: white;
-    padding: 0 18px;
+    padding: 0 12px;
 }
 
 footer a {

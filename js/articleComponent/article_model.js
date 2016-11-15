@@ -5,7 +5,7 @@ class Model {
     }
     
     addField(name) {
-        this[name] = this.data[name] ? this.data[name] : null;
+        this[name] = this.data[name] || null;
     }
 }
 
