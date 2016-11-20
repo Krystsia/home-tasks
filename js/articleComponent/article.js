@@ -7,26 +7,14 @@ class Article {
             let itemCtrl = new ArticleCtrl(itemModel)
             return new ArticleView(itemModel, itemCtrl).constructTemplate();
         });
-		
-		console.log(allArticles);
-		
-		let allArticlesProxy = new Proxy(allArticles, {
-			enumerate: function(target) {
-				let tempStore = [];
-				debugger; /// why it didn't work
-				let filteredArticles = target.filter((article) => {
-					let result = !(tempStore.some((item) => (item === article.innerHTML)));
-					tempStore.push(item.innerHTML);
-					return result;
-				});
-				
-				return filteredArticles[Symbol.iterator]();
-			}
-		})
         
-        for(let li of allArticlesProxy) {
-			console.log(allArticlesProxy);
-            fragment.appendChild(li);
+        let tempArticleStore = [];
+        
+        for(let li of allArticles) {
+            if(!tempArticleStore.some((item) => (item === li.innerHTML))) {
+                tempArticleStore.push(li.innerHTML);
+                fragment.appendChild(li);
+            }
         } 
         
         document.querySelector(element).appendChild(fragment);

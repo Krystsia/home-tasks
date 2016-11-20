@@ -1,0 +1,10 @@
+{
+    "presets": [
+        "es2015",
+        "stage-3",
+        "es2015-ie"
+    ],
+    "plugins": [
+        "./babel-plugins/first-babel-plugin.js"
+    ]
+}
