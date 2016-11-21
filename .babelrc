@@ -5,6 +5,7 @@
         "es2015-ie"
     ],
     "plugins": [
-        "./babel-plugins/first-babel-plugin.js"
+        "./babel-plugins/first-babel-plugin.js",
+		"./babel-plugins/second-babel-plugin.js"
     ]
 }

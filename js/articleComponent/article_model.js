@@ -1,3 +1,12 @@
+function dateDecor(target, propertyName, descriptor) {
+	 return {
+		value: function() {
+			
+			var primaryFormat = descriptor.value.apply(this, arguments);
+			return getDate(primaryFormat);
+		}
+	}
+}
 
 class Model {
     constructor(data) {
@@ -20,8 +29,17 @@ class ArticleModel extends Model{
         this.addField('urlToImage');
         this.addField('abstract');
         this.addField('author');
-    } 
+    };
+	
+	getNowDateDecorator(dateDecor) {
+		return this.publishedAt;
+	};
+	
 }
+
+
+
+
 
 
 
