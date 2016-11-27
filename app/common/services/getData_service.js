@@ -1,5 +1,8 @@
+import CustomError from '../components/errorComponent/customError.js';
+
 let wrapper = document.querySelector('.articles');
-class Request {
+
+export default class Request {
     constructor(apiKey, method, url, ...headers) {
         this.apiKey = apiKey;
         this.method = method;

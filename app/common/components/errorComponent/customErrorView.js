@@ -1,4 +1,4 @@
-class CustomErrorView {
+export default class CustomErrorView {
     constructor(errorMessage) {
         this.errorMessage = errorMessage;
     } 

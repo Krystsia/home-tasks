@@ -1,4 +1,6 @@
-class CustomError {
+import CustomErrorView from './CustomErrorView.js';
+
+export default class CustomError {
     constructor(errorMessage) {
         this.errorElement = new CustomErrorView(errorMessage).cunstructErrorTemplate();
     }

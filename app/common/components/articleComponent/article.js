@@ -1,4 +1,11 @@
-class Article {
+import './styles/article.scss';
+
+
+import ArticleModel from './article_model.js';
+import ArticleCtrl from './article_ctrl.js';
+import ArticleView from './article_view.js';
+
+export default class Article {
     static init(data, element) {
         let { articles: allArticles = [] } = data;
         let fragment = document.createDocumentFragment();
@@ -18,7 +25,8 @@ class Article {
         } 
         
         document.querySelector(element).appendChild(fragment);
-        hideLoader()
+        hideLoader();
+        initialEvents('mouseover', ArticleCtrl.showDescription);
     }; 
 }
 
@@ -30,4 +38,9 @@ function hideLoader() {
     loader.style.display = 'none';
     backdrop.style.opacity = '0';
     backdrop.style.display = 'none';
+}
+
+function initialEvents(evenName, callback) {
+    let articles = document.querySelector('.articles');
+    articles.addEventListener(evenName, callback); 
 }

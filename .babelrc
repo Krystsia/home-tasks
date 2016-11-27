@@ -6,6 +6,7 @@
     ],
     "plugins": [
         "./babel-plugins/first-babel-plugin.js",
-		"./babel-plugins/second-babel-plugin.js"
+        "babel-plugin-transform-es2015-modules-commonjs"
+		
     ]
 }
