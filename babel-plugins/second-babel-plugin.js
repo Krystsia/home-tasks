@@ -7,13 +7,13 @@ module.exports = function({ types: t}) {
 				const method = path.node.name;
 				const custormDecorator = path.parent.params ? path.parent.params[0].name : null;
 				const bodyPath = path.findParent((path) => path.isProgram());
-				const redefinedMethod = `(Object.defineProperty(
+				const redefinedMethod = `Object.defineProperty(
 					${this.className}.prototype,
 					'${method}',
 					decorate([${custormDecorator}],
 						${this.className}.prototype,
 						'${method}',
-						Object.getOwnPropertyDescriptor(${this.className}.prototype, '${method}'))))`;
+						Object.getOwnPropertyDescriptor(${this.className}.prototype, '${method}')))`;
 			
 				const decorate = `var decorate =  function(decorators, target, propertyName, descriptor) {
 									  if(arguments.length == 4) {
