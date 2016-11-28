@@ -1,10 +1,11 @@
 const webpack = require('webpack');
 const NODE_ENV = process.env.NODE_ENV || "development";
+const path = require('path');
 
 module.exports = {
-    context: __dirname + "/app",
+    context: path.resolve(__dirname, "app"),
     entry: {
-        "bbc": "./last-news/index.js",
+        "bbc": ["./last-news/index.js"],
         "ng": "./national-geographic-news/index.js"
     },
     
@@ -29,9 +30,10 @@ module.exports = {
     },
     
     resolveLoader: {
-        moduleDirectories: ['node_modules'],
+        moduleDirectories: ['node_modules', 'my-loader'],
         moduleTemplates: ['*-loader', '*'],
-        extensions: ['', '.js']
+        extensions: ['', '.js'],
+		
     },
     
     plugins: [
@@ -41,14 +43,15 @@ module.exports = {
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "common"
-        })
+        }),
+		new webpack.HotModuleReplacementPlugin()
     ],
     
     module: {
         loaders: [
             {
                 test: /\.js/,
-                loader: 'babel',
+                loader: "babel",
                 query: {
                     "presets": [
                         "es2015",
@@ -58,7 +61,6 @@ module.exports = {
                     "plugins": [
                         "./babel-plugins/first-babel-plugin.js",
                         "babel-plugin-transform-es2015-modules-commonjs"
-
                     ]
                 }
             },
@@ -67,6 +69,18 @@ module.exports = {
                 test: /\.scss$/,
                 loaders: ["style-loader", "css-loader", "sass-loader"]
             }
+//			,
+//			
+//			{
+//                test: /\.json$/,
+//                loader: "my"
+//            }
         ]
-    }
+    },
+	
+	devServer: {
+		host: 'localhost',
+		port: 8080,
+		hot: true
+	}
 };

@@ -39,6 +39,10 @@ $media-query: (
         &:nth-of-type(5n + 1) {
             @include span(12 no-gutters);
         }
+	
+	 	&:nth-of-type(10n) {
+			@include span(12 no-gutters);
+		}
     }
     
     @media screen and (max-width: #{map-get($media-query, "medium")}) {
@@ -47,6 +51,10 @@ $media-query: (
         &:nth-of-type(5n + 1) {
             @include span(18 no-gutters);
         }
+		
+	 	&:nth-of-type(10n) {
+			@include span(18 no-gutters);
+		}
     }
     
     @media screen and (max-width: #{map-get($media-query, "small")}) {
@@ -55,6 +63,10 @@ $media-query: (
         &:nth-of-type(5n + 1) {
             @include span(36 no-gutters);
         }
+		
+	 	&:nth-of-type(10n) {
+			@include span(36 no-gutters);
+		}
     }
 }
 

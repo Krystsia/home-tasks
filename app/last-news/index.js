@@ -18,7 +18,7 @@ import MoreNewsCtrl from '../common/components/more-news-componet/more-news_ctrl
             Article.init(data, '.articles');    
         });
         let button = document.querySelector('.add-more');
-        new MoreNewsCtrl().addMoreNews(button);
+        new MoreNewsCtrl().addMoreNews(button); 
     })  
 })(document); 
 
