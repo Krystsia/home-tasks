@@ -8,6 +8,7 @@
     @include pad(lines(2));
     @include rhythm($padding-leader: 1, $padding-trailer: 1, $leader: 1, $trailer: 1);
     @include font-primary($font-size: 24px);
+    @include transition('opacity', 1s);
     border: 2px solid $teal-dark;
     background: $white;
     cursor: pointer;

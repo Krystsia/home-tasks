@@ -12,8 +12,8 @@
 }
 
 
-@mixin transition($prop: all) {
-    transition: $prop .5s ease-in-out;
+@mixin transition($prop: all, $time: .5s) {
+    transition: unquote($prop) $time ease-in-out;
 }
 
 @mixin flex-center() {

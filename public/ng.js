@@ -1,5 +1,5 @@
 var ng =
-webpackJsonp_name_([1],[
+webpackJsonp_name_([2],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -7,11 +7,11 @@ webpackJsonp_name_([1],[
 
 	__webpack_require__(2);
 
-	var _getData_service = __webpack_require__(6);
+	var _getData_service = __webpack_require__(3);
 
 	var _getData_service2 = _interopRequireDefault(_getData_service);
 
-	var _article = __webpack_require__(9);
+	var _article = __webpack_require__(6);
 
 	var _article2 = _interopRequireDefault(_article);
 

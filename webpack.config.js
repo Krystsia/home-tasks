@@ -1,6 +1,10 @@
 const webpack = require('webpack');
 const NODE_ENV = process.env.NODE_ENV || "development";
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+const extractSCSS = new ExtractTextPlugin('style.css');
+const extractJSON = new ExtractTextPlugin('data.json');
 
 module.exports = {
     context: path.resolve(__dirname, "app"),
@@ -11,7 +15,7 @@ module.exports = {
     
     output: {
         path: __dirname + "/public",
-        publicPath: '/',
+        publicPath: './',
         filename: "[name].js",
         library: "[name]"
     },
@@ -30,7 +34,7 @@ module.exports = {
     },
     
     resolveLoader: {
-        moduleDirectories: ['node_modules', 'my-loader'],
+        moduleDirectories: ['node_modules'],
         moduleTemplates: ['*-loader', '*'],
         extensions: ['', '.js'],
 		
@@ -38,13 +42,17 @@ module.exports = {
     
     plugins: [
         new webpack.NoErrorsPlugin(),
+        
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
         }),
+        
         new webpack.optimize.CommonsChunkPlugin({
             name: "common"
         }),
-		new webpack.HotModuleReplacementPlugin()
+        
+        extractSCSS,
+        extractJSON
     ],
     
     module: {
@@ -67,20 +75,42 @@ module.exports = {
             
             {
                 test: /\.scss$/,
-                loaders: ["style-loader", "css-loader", "sass-loader"]
+                loader: extractSCSS.extract("style", "css?minimize!postcss!sass?sourceMap")
+            },
+			
+			{
+                test: /\.json$/,
+                loader: extractJSON.extract("json", "json!my")
             }
-//			,
-//			
-//			{
-//                test: /\.json$/,
-//                loader: "my"
-//            }
         ]
     },
 	
 	devServer: {
 		host: 'localhost',
-		port: 8080,
-		hot: true
-	}
+		port: 8080
+    }
 };
+
+
+
+//
+//module.exports = function(source) {
+//	if(this.cacheable) this.cacheable();
+//	
+//	function deleteNumberAttributes(obj) {
+//		for (let item in obj) {
+//			if (typeof obj[item] === "object") {
+//				deleteNumberAttributes(obj[item])
+//			}
+//			
+//			item = Number(item);
+//			
+//			if (item || item === 0) {
+//				delete obj[item];
+//			}
+//		}
+//	}
+//	
+//	source = JSON.parse(source);
+//	return JSON.stringify(deleteNumberAttributes(source));
+//};

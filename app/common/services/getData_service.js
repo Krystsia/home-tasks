@@ -1,5 +1,6 @@
 import CustomError from '../components/errorComponent/customError.js';
 
+
 let wrapper = document.querySelector('.articles');
 
 export default class Request {
@@ -44,3 +45,6 @@ function handleErrors(response) {
     }
     return response;
 }
+
+
+
