@@ -9,8 +9,8 @@ const extractJSON = new ExtractTextPlugin('data.json');
 module.exports = {
     context: path.resolve(__dirname, "app"),
     entry: {
-        "bbc": ["webpack-dev-server/client", "webpack/hot/dev-server", "./last-news/index.js"],
-        "ng": ["webpack-dev-server/client", "webpack/hot/dev-server", "./national-geographic-news/index.js"]
+        "bbc": "./last-news/index.js",
+        "ng": "./national-geographic-news/index.js"
     },
     
     output: {
@@ -30,15 +30,15 @@ module.exports = {
     
     resolve: {
         moduleDirectories: ['node_modules'],
-        extensions: ['', '.js'],
-		alias: {my: "./webpack-loaders/my-loader.js"}
+        extensions: ['', '.js']
     },
     
     resolveLoader: {
-        moduleDirectories: ['node_modules'],
+        //moduleDirectories: ['webpack-loaders'],
         moduleTemplates: ['*-loader', '*'],
         extensions: ['', '.js'],
-		
+		alias: {my: "../../webpack-loaders/my-loader.js"},
+		root: path.resolve("./webpack-loaders")
     },
     
     plugins: [
@@ -51,7 +51,6 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: "common"
         }),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
 
         extractSCSS,
@@ -83,7 +82,7 @@ module.exports = {
 			
 			{
                 test: /\.json$/,
-                loader: extractJSON.extract("json", "json!my")
+                loader: "my"
             }
         ]
     },

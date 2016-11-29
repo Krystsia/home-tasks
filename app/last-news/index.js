@@ -2,6 +2,7 @@ import '../common/style/reset.scss';
 
 import Request from '../common/services/getData_service.js';
 import Article from '../common/components/articleComponent/article.js';
+//import '../common/some.json';
 
 
 
@@ -25,6 +26,8 @@ import Article from '../common/components/articleComponent/article.js';
                     moreNews.addMoreNews(button);
                 })
             })
+		
+		
     })  
 })(document); 
 
