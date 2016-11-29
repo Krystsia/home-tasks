@@ -9,8 +9,8 @@ const extractJSON = new ExtractTextPlugin('data.json');
 module.exports = {
     context: path.resolve(__dirname, "app"),
     entry: {
-        "bbc": ["./last-news/index.js"],
-        "ng": "./national-geographic-news/index.js"
+        "bbc": ["webpack-dev-server/client", "webpack/hot/dev-server", "./last-news/index.js"],
+        "ng": ["webpack-dev-server/client", "webpack/hot/dev-server", "./national-geographic-news/index.js"]
     },
     
     output: {
@@ -30,7 +30,8 @@ module.exports = {
     
     resolve: {
         moduleDirectories: ['node_modules'],
-        extensions: ['', '.js']
+        extensions: ['', '.js'],
+		alias: {my: "./webpack-loaders/my-loader.js"}
     },
     
     resolveLoader: {
@@ -50,7 +51,9 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             name: "common"
         }),
-        
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
+
         extractSCSS,
         extractJSON
     ],
@@ -86,31 +89,8 @@ module.exports = {
     },
 	
 	devServer: {
-		host: 'localhost',
-		port: 8080
+		port: 8080,
+		contentBase: __dirname + '/public',
+        hot: true
     }
 };
-
-
-
-//
-//module.exports = function(source) {
-//	if(this.cacheable) this.cacheable();
-//	
-//	function deleteNumberAttributes(obj) {
-//		for (let item in obj) {
-//			if (typeof obj[item] === "object") {
-//				deleteNumberAttributes(obj[item])
-//			}
-//			
-//			item = Number(item);
-//			
-//			if (item || item === 0) {
-//				delete obj[item];
-//			}
-//		}
-//	}
-//	
-//	source = JSON.parse(source);
-//	return JSON.stringify(deleteNumberAttributes(source));
-//};

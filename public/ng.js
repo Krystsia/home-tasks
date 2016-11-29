@@ -1,17 +1,28 @@
 var ng =
-webpackJsonp_name_([2],[
-/* 0 */
+webpackJsonp_name_([2],{
+
+/***/ 0:
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(1);
+	__webpack_require__(75);
+	module.exports = __webpack_require__(97);
+
+
+/***/ },
+
+/***/ 97:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(2);
+	__webpack_require__(78);
 
-	var _getData_service = __webpack_require__(3);
+	var _getData_service = __webpack_require__(82);
 
 	var _getData_service2 = _interopRequireDefault(_getData_service);
 
-	var _article = __webpack_require__(6);
+	var _article = __webpack_require__(85);
 
 	var _article2 = _interopRequireDefault(_article);
 
@@ -33,5 +44,6 @@ webpackJsonp_name_([2],[
 	})(document);
 
 /***/ }
-]);
+
+});
 //# sourceMappingURL=ng.js.map

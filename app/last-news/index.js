@@ -8,7 +8,6 @@ import Article from '../common/components/articleComponent/article.js';
 ((d) => {
     let mainRequest = new Request('f1fdf072013c4b1e8b92b027a92a8977', 'GET', 'https://newsapi.org/v1/articles?source=bbc-news', {Accept: 'xyz'}),
         button = document.querySelector('.add-more');
-    
     d.addEventListener('DOMContentLoaded', function() {
         mainRequest.getData()
             .then((data) => { 
@@ -26,8 +25,6 @@ import Article from '../common/components/articleComponent/article.js';
                     moreNews.addMoreNews(button);
                 })
             })
-        
-        
     })  
 })(document); 
 

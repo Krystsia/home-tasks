@@ -11,6 +11,7 @@
     @include transition('opacity', 1s);
     border: 2px solid $teal-dark;
     background: $white;
+
     cursor: pointer;
     
     #{active-state()} {
