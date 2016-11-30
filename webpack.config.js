@@ -10,7 +10,7 @@ module.exports = {
     context: path.resolve(__dirname, "app"),
     entry: {
         "bbc": "./last-news/index.js",
-        "ng": "./national-geographic-news/index.js"
+        "ng": "./national-geographic-news/index.js",
     },
     
     output: {
@@ -29,11 +29,12 @@ module.exports = {
     devtool: NODE_ENV == "development" ? "cheap-module-source-map" : null,
     
     resolve: {
-        fallback: path.resolve(__dirname, "webpack-loaders"),
+        modulesDirectories: ['node_modules'],
         extensions: ['', '.js']
     },
     
     resolveLoader: {
+        modulesDirectories: ['node_modules','my_loaders'],
         moduleTemplates: ['*-loader', '*'],
         extensions: ['', '.js']
     },
@@ -44,7 +45,9 @@ module.exports = {
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
         }),
-        
+        new webpack.ProvidePlugin({
+            'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "common"
         }),
@@ -59,28 +62,17 @@ module.exports = {
         loaders: [
             {
                 test: /\.js/,
-                loader: "babel",
-                query: {
-                    "presets": [
-                        "es2015",
-                        "stage-2",
-                        "es2015-ie"
-                    ],
-                    "plugins": [
-                        "./babel-plugins/first-babel-plugin.js",
-                        "babel-plugin-transform-es2015-modules-commonjs"
-                    ]
-                }
+                loader: "babel"
             },
             
             {
                 test: /\.scss$/,
                 loader: extractSCSS.extract("style", "css?minimize!postcss!sass?sourceMap")
             },
-            
+
             {
                 test: /\.json$/,
-                loader: "my"
+                loaders: ["json", 'my']
             }
         ]
     },
@@ -89,5 +81,6 @@ module.exports = {
 		port: 8080,
 		contentBase: __dirname + '/public',
         hot: true
-    }
+    },
+    debug: true
 };
