@@ -72,7 +72,7 @@ module.exports = {
 
             {
                 test: /\.json$/,
-                loaders: ["json", 'my']
+                loaders: ["json", 'my?count="removedItem"']
             }
         ]
     },

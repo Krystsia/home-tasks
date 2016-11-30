@@ -1,8 +1,12 @@
+var utils = require('loader-utils');
 
 module.exports = function(source) {
 	if(this.cacheable) this.cacheable();
     console.log('don\'t worry, be happy');
-
+	
+	let config = utils.getLoaderConfig(this, 'my-loader');
+	let counter = 0;
+	
 	try {
 		source = JSON.parse(source);
 		return JSON.stringify(deleteNumberAttributes(source));
@@ -16,14 +20,14 @@ module.exports = function(source) {
 				if (typeof obj[item] === "object") {
 					deleteNumberAttributes(obj[item])
 				}
-
-				item = Number(item);
-
-				if (item || item === 0) {
+				
+				if (!isNaN(Number(item))) {
+					counter++;
 					delete obj[item];
 				}
-           }
-           return obj;
+           	}
+			obj[config.count] = counter;
+           	return obj;
        }
    }
 };

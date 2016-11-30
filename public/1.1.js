@@ -1,11 +1,11 @@
 webpackJsonp_name_([1],{
 
-/***/ 17:
+/***/ 18:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _moreNews = __webpack_require__(18);
+	var _moreNews = __webpack_require__(19);
 
 	var _moreNews2 = _interopRequireDefault(_moreNews);
 
@@ -21,7 +21,7 @@ webpackJsonp_name_([1],{
 
 /***/ },
 
-/***/ 18:
+/***/ 19:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30,7 +30,7 @@ webpackJsonp_name_([1],{
 	    value: true
 	});
 
-	__webpack_require__(19);
+	__webpack_require__(20);
 
 	var _getData_service = __webpack_require__(5);
 
@@ -69,13 +69,13 @@ webpackJsonp_name_([1],{
 
 /***/ },
 
-/***/ 19:
+/***/ 20:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(20);
+	var content = __webpack_require__(21);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(4)(content, {});
@@ -96,7 +96,7 @@ webpackJsonp_name_([1],{
 
 /***/ },
 
-/***/ 20:
+/***/ 21:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(3)();
