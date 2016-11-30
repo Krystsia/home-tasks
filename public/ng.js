@@ -7,11 +7,11 @@ webpackJsonp_name_([2],[
 
 	__webpack_require__(1);
 
-	var _getData_service = __webpack_require__(2);
+	var _getData_service = __webpack_require__(5);
 
 	var _getData_service2 = _interopRequireDefault(_getData_service);
 
-	var _article = __webpack_require__(5);
+	var _article = __webpack_require__(9);
 
 	var _article2 = _interopRequireDefault(_article);
 

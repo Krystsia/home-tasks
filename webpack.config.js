@@ -29,16 +29,13 @@ module.exports = {
     devtool: NODE_ENV == "development" ? "cheap-module-source-map" : null,
     
     resolve: {
-        moduleDirectories: ['node_modules'],
+        fallback: path.resolve(__dirname, "webpack-loaders"),
         extensions: ['', '.js']
     },
     
     resolveLoader: {
-        //moduleDirectories: ['webpack-loaders'],
         moduleTemplates: ['*-loader', '*'],
-        extensions: ['', '.js'],
-		alias: {my: "../../webpack-loaders/my-loader.js"},
-		root: path.resolve("./webpack-loaders")
+        extensions: ['', '.js']
     },
     
     plugins: [
@@ -57,6 +54,7 @@ module.exports = {
         extractJSON
     ],
     
+    
     module: {
         loaders: [
             {
@@ -65,7 +63,7 @@ module.exports = {
                 query: {
                     "presets": [
                         "es2015",
-                        "stage-3",
+                        "stage-2",
                         "es2015-ie"
                     ],
                     "plugins": [
@@ -79,8 +77,8 @@ module.exports = {
                 test: /\.scss$/,
                 loader: extractSCSS.extract("style", "css?minimize!postcss!sass?sourceMap")
             },
-			
-			{
+            
+            {
                 test: /\.json$/,
                 loader: "my"
             }

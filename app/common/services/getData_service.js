@@ -1,5 +1,7 @@
 import CustomError from '../components/errorComponent/customError.js';
 
+let a = require('../some.json');
+
 
 let wrapper = document.querySelector('.articles');
 
@@ -36,7 +38,7 @@ export default class Request {
                 CustomError.init(error, wrapper); 
                 return {};
             }); 
-    }
+    } 
 }
 
 function handleErrors(response) {
