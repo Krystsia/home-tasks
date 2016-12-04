@@ -4,6 +4,7 @@ import './styles/article.scss';
 import ArticleModel from './article_model.js';
 import ArticleCtrl from './article_ctrl.js';
 import ArticleView from './article_view.js';
+import ToggleDescription from '../../services/toggleDescription-service.js';
 
 export default class Article {
     static init(data, element) {
@@ -14,20 +15,20 @@ export default class Article {
             let itemCtrl = new ArticleCtrl(itemModel)
             return new ArticleView(itemModel, itemCtrl).constructTemplate();
         });
-        
+
         let tempArticleStore = [];
-        
+
         for(let li of allArticles) {
             if(!tempArticleStore.some((item) => (item === li.innerHTML))) {
                 tempArticleStore.push(li.innerHTML);
                 fragment.appendChild(li);
             }
-        } 
-        
+        }
+
         document.querySelector(element).appendChild(fragment);
         hideLoader();
-        initialEvents('mouseover', ArticleCtrl.showDescription);
-    }; 
+        initialEvents('mouseover', ToggleDescription.showDescription);
+    };
 }
 
 function hideLoader() {
@@ -42,5 +43,5 @@ function hideLoader() {
 
 function initialEvents(evenName, callback) {
     let articles = document.querySelector('.articles');
-    articles.addEventListener(evenName, callback); 
+    articles.addEventListener(evenName, callback);
 }

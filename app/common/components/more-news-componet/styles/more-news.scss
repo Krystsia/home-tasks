@@ -13,7 +13,7 @@
     background: $white;
 
     cursor: pointer;
-    
+
     #{active-state()} {
         outline: none;
         border: 2px solid $teal-dark;

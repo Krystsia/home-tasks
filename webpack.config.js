@@ -12,36 +12,39 @@ module.exports = {
         "bbc": "./last-news/index.js",
         "ng": "./national-geographic-news/index.js",
     },
-    
+
     output: {
         path: __dirname + "/public",
         publicPath: './',
         filename: "[name].js",
         library: "[name]"
     },
-    
+
     watch: NODE_ENV == "development",
-    
+
     watchOptions: {
         aggregateTimeout: 100
     },
-    
+
     devtool: NODE_ENV == "development" ? "cheap-module-source-map" : null,
-    
+
     resolve: {
         modulesDirectories: ['node_modules'],
-        extensions: ['', '.js']
+        extensions: ['', '.js'],
+
     },
-    
+
     resolveLoader: {
-        modulesDirectories: ['node_modules','my_loaders'],
+        modulesDirectories: ['node_modules'],
         moduleTemplates: ['*-loader', '*'],
-        extensions: ['', '.js']
+        //fallback: path.resolve('./my_loaders/first-loader'),
+        extensions: ['', '.js'],
+        alias: { my$: path.resolve(__dirname, 'my_loaders')}
     },
-    
+
     plugins: [
         new webpack.NoErrorsPlugin(),
-        
+
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
         }),
@@ -56,15 +59,15 @@ module.exports = {
         extractSCSS,
         extractJSON
     ],
-    
-    
+
+
     module: {
         loaders: [
             {
                 test: /\.js/,
                 loader: "babel"
             },
-            
+
             {
                 test: /\.scss$/,
                 loader: extractSCSS.extract("style", "css?minimize!postcss!sass?sourceMap")
@@ -76,7 +79,7 @@ module.exports = {
             }
         ]
     },
-	
+
 	devServer: {
 		port: 8080,
 		contentBase: __dirname + '/public',
