@@ -3,6 +3,10 @@ import appDispatcher from '../dispatcher/app_dispatcher.js';
 import { store } from '../stores/stores.js';
 import Article from '../components/article-component/article_component.js';
 import MoreNews from '../components/more-new-component/more_news_component.js';
+import { passwordAccess } from '../constants/constants.js';
+import RequestString from '../common/services/getRequest_service.js';
+
+const requestString = new RequestString();
 
 class Actions {
   init() {
@@ -11,7 +15,7 @@ class Actions {
     let moreNews = new MoreNews();
     articles.onInit();
     moreNews.onInit();
-    const mainRequest = new Request('f1fdf072013c4b1e8b92b027a92a8977', 'GET', 'https://newsapi.org/v1/articles?source=bbc-news', {Accept: 'xyz'});
+    const mainRequest = new Request(passwordAccess, 'GET', requestString.next(), {Accept: 'xyz'});
     mainRequest.getData()
       .then((data) => {
           if (NODE_ENV == 'development') {
@@ -21,7 +25,7 @@ class Actions {
       })
   }
   add() {
-    const mainRequest = new Request('f1fdf072013c4b1e8b92b027a92a8977', 'GET', 'https://newsapi.org/v1/articles?source=bbc-sport', {Accept: 'xyz'});
+    const mainRequest = new Request(passwordAccess, 'GET', requestString.next(), {Accept: 'xyz'});
     mainRequest.getData()
       .then((data) => {
           if (NODE_ENV == 'development') {

@@ -2,6 +2,9 @@ import CustomError from '../components/errorComponent/customError.js';
 
 let wrapper = document.querySelector('.articles');
 
+let cashRequestsStorage = [];
+let dataStorrage = new Map();
+
 export default class Request {
     constructor(apiKey, method, url, ...headers) {
         this.apiKey = apiKey;
@@ -28,14 +31,35 @@ export default class Request {
         }
     }
 
+    makeRequest() {
+       return fetch(this.stringRequest, this.config)
+          .then(handleErrors)
+          .then(data => data.json())
+          .then((data) => {
+              dataStorrage.set(this.stringRequest, data);
+              return data},
+          (error) => {
+              CustomError.init(error, wrapper);
+              return {};
+          })
+    }
+
+    // implementation of proxy
+
+    proxyGetData() {
+      const request =  cashRequestsStorage.filter((item) => this.stringRequest === item);
+      if (!request.length) {
+         cashRequestsStorage.push(this.stringRequest);
+        return this.makeRequest();
+      } else {
+        return Promise.resolve(dataStorrage.get(request[0]));
+      }
+    }
+
     getData() {
-        return fetch(this.stringRequest, this.config)
-            .then(handleErrors)
-            .then((data) => data.json(),(error) => { 
-                CustomError.init(error, wrapper); 
-                return {};
-            }); 
-    } 
+      return this.proxyGetData();
+    }
+
 }
 
 function handleErrors(response) {
@@ -44,6 +68,3 @@ function handleErrors(response) {
     }
     return response;
 }
-
-
-

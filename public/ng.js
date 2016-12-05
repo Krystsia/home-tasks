@@ -5,13 +5,13 @@ webpackJsonp_name_([1],[
 
 	'use strict';
 
-	__webpack_require__(14);
+	__webpack_require__(15);
 
 	var _getData_service = __webpack_require__(2);
 
 	var _getData_service2 = _interopRequireDefault(_getData_service);
 
-	var _article = __webpack_require__(18);
+	var _article = __webpack_require__(19);
 
 	var _article2 = _interopRequireDefault(_article);
 
@@ -46,16 +46,17 @@ webpackJsonp_name_([1],[
 /* 11 */,
 /* 12 */,
 /* 13 */,
-/* 14 */
+/* 14 */,
+/* 15 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 15 */,
 /* 16 */,
 /* 17 */,
-/* 18 */
+/* 18 */,
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -64,21 +65,21 @@ webpackJsonp_name_([1],[
 	    value: true
 	});
 
-	__webpack_require__(19);
+	__webpack_require__(20);
 
-	var _article_model = __webpack_require__(21);
+	var _article_model = __webpack_require__(22);
 
 	var _article_model2 = _interopRequireDefault(_article_model);
 
-	var _article_ctrl = __webpack_require__(23);
+	var _article_ctrl = __webpack_require__(24);
 
 	var _article_ctrl2 = _interopRequireDefault(_article_ctrl);
 
-	var _article_view = __webpack_require__(24);
+	var _article_view = __webpack_require__(25);
 
 	var _article_view2 = _interopRequireDefault(_article_view);
 
-	var _toggleDescriptionService = __webpack_require__(25);
+	var _toggleDescriptionService = __webpack_require__(12);
 
 	var _toggleDescriptionService2 = _interopRequireDefault(_toggleDescriptionService);
 
@@ -165,14 +166,14 @@ webpackJsonp_name_([1],[
 	}
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 20 */,
-/* 21 */
+/* 21 */,
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -181,7 +182,7 @@ webpackJsonp_name_([1],[
 	    value: true
 	});
 
-	var _model = __webpack_require__(22);
+	var _model = __webpack_require__(23);
 
 	var _model2 = _interopRequireDefault(_model);
 
@@ -220,7 +221,7 @@ webpackJsonp_name_([1],[
 		exports.default = ArticleModel;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -248,7 +249,7 @@ webpackJsonp_name_([1],[
 		exports.default = Model;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -304,7 +305,7 @@ webpackJsonp_name_([1],[
 		exports.default = ArticleCtrl;
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -331,7 +332,7 @@ webpackJsonp_name_([1],[
 
 	    ArticleView.prototype.constructTemplate = function constructTemplate() {
 	        var li = document.createElement('li');
-	        li.innerHTML = '<a href="' + this.model.url + '">\n                            <h2>' + this.model.title + '</h2>\n                            <p class="published-at">' + _getDate_service2.default.getDate(this.model.publishedAt) + '</p>\n                            <img src="' + this.model.urlToImage + '" alt="image"/>\n                            <p class="descriptor"><span>' + this.model.description + '</span><p>\n                        </a>';
+	        li.innerHTML = '<a href="' + this.model.url + '">\n                            <h2>' + this.model.title + '</h2>\n                            <p class="published-at">' + new _getDate_service2.default().getDate(this.model.publishedAt) + '</p>\n                            <img src="' + this.model.urlToImage + '" alt="image"/>\n                            <p class="descriptor"><span>' + this.model.description + '</span><p>\n                        </a>';
 
 	        return li;
 	    };

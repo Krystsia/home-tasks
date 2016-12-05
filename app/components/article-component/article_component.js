@@ -1,6 +1,7 @@
 import { store } from '../../stores/stores.js';
 import DateService from '../../common/services/getDate_service.js';
 import ToggleDescription from '../../common/services/toggleDescription-service.js';
+import Highlight from '../../common/services/highlight_service.js';
 
 export default class Article {
   onInit() {
@@ -26,12 +27,20 @@ function constructArticles() {
   allArticles = allArticles.map((article) => {
     let li = document.createElement('li');
 
-    li.innerHTML = `<a href="${article.url}">
+    li.innerHTML = `<a href="${article.url}" target="blank">
                         <h2>${article.title}</h2>
-                        <p class="published-at">${DateService.getDate(article.publishedAt)}</p>
+                        <p class="published-at">${new DateService().getDate(article.publishedAt)}</p>
                         <img src="${article.urlToImage}" alt="image"/>
                         <p class="descriptor"><span>${article.description}</span><p>
                     </a>`;
+    li.addEventListener('click', () => {
+       new Highlight().add(li);
+    });
+
+    li.highlight = () => {
+      li.classList.add('highlight');
+    }
+
     return li;
   });
 

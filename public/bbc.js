@@ -7,12 +7,21 @@ webpackJsonp_name_([0],[
 
 	var _actions = __webpack_require__(1);
 
-	var a = __webpack_require__(13);
+	var _highlight_service = __webpack_require__(27);
+
+	var _highlight_service2 = _interopRequireDefault(_highlight_service);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var a = __webpack_require__(14);
 
 	console.log(a);
 
 	(function (d) {
 	    _actions.actions.init();
+	    document.querySelector('.all-visited').addEventListener('click', function () {
+	        new _highlight_service2.default().highlight();
+	    });
 	})(document);
 
 /***/ },
@@ -22,7 +31,7 @@ webpackJsonp_name_([0],[
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	exports.actions = undefined;
 
@@ -40,47 +49,55 @@ webpackJsonp_name_([0],[
 
 	var _article_component2 = _interopRequireDefault(_article_component);
 
-	var _more_news_component = __webpack_require__(12);
+	var _more_news_component = __webpack_require__(13);
 
 	var _more_news_component2 = _interopRequireDefault(_more_news_component);
+
+	var _constants = __webpack_require__(8);
+
+	var _getRequest_service = __webpack_require__(26);
+
+	var _getRequest_service2 = _interopRequireDefault(_getRequest_service);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	var requestString = new _getRequest_service2.default();
+
 	var Actions = function () {
-	    function Actions() {
-	        _classCallCheck(this, Actions);
-	    }
+	  function Actions() {
+	    _classCallCheck(this, Actions);
+	  }
 
-	    Actions.prototype.init = function init() {
-	        _stores.store.dispatcherIndex();
-	        var articles = new _article_component2.default();
-	        var moreNews = new _more_news_component2.default();
-	        articles.onInit();
-	        moreNews.onInit();
-	        var mainRequest = new _getData_service2.default('f1fdf072013c4b1e8b92b027a92a8977', 'GET', 'https://newsapi.org/v1/articles?source=bbc-news', { Accept: 'xyz' });
-	        mainRequest.getData().then(function (data) {
-	            if (true) {
-	                console.log(data);
-	            }
-	            _app_dispatcher2.default.handleInitAction(data);
-	        });
-	    };
+	  Actions.prototype.init = function init() {
+	    _stores.store.dispatcherIndex();
+	    var articles = new _article_component2.default();
+	    var moreNews = new _more_news_component2.default();
+	    articles.onInit();
+	    moreNews.onInit();
+	    var mainRequest = new _getData_service2.default(_constants.passwordAccess, 'GET', requestString.next(), { Accept: 'xyz' });
+	    mainRequest.getData().then(function (data) {
+	      if (true) {
+	        console.log(data);
+	      }
+	      _app_dispatcher2.default.handleInitAction(data);
+	    });
+	  };
 
-	    Actions.prototype.add = function add() {
-	        var mainRequest = new _getData_service2.default('f1fdf072013c4b1e8b92b027a92a8977', 'GET', 'https://newsapi.org/v1/articles?source=bbc-sport', { Accept: 'xyz' });
-	        mainRequest.getData().then(function (data) {
-	            if (true) {
-	                console.log(data);
-	            }
-	            _app_dispatcher2.default.handleAddAction(data);
-	        });
-	    };
+	  Actions.prototype.add = function add() {
+	    var mainRequest = new _getData_service2.default(_constants.passwordAccess, 'GET', requestString.next(), { Accept: 'xyz' });
+	    mainRequest.getData().then(function (data) {
+	      if (true) {
+	        console.log(data);
+	      }
+	      _app_dispatcher2.default.handleAddAction(data);
+	    });
+	  };
 
-	    Actions.prototype.destroy = function destroy() {};
+	  Actions.prototype.destroy = function destroy() {};
 
-	    return Actions;
+	  return Actions;
 	}();
 
 		var actions = exports.actions = new Actions();
@@ -208,7 +225,7 @@ webpackJsonp_name_([0],[
 /* 8 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -217,7 +234,11 @@ webpackJsonp_name_([0],[
 	  INIT_ACTION: 1,
 	  VIEW_ACTION: 2,
 	  ADD_ACTION: 3
-		};
+	};
+
+	var passwordAccess = exports.passwordAccess = 'f1fdf072013c4b1e8b92b027a92a8977';
+
+	var sources = exports.sources = ['bbc-news', 'bbc-sport', 'ars-technica', 'bloomberg', 'business-insider', 'daily-mail', 'entertainment-weekly', 'entertainment-weekly'];
 
 /***/ },
 /* 9 */
@@ -367,9 +388,13 @@ webpackJsonp_name_([0],[
 
 	var _getDate_service2 = _interopRequireDefault(_getDate_service);
 
-	var _toggleDescriptionService = __webpack_require__(25);
+	var _toggleDescriptionService = __webpack_require__(12);
 
 	var _toggleDescriptionService2 = _interopRequireDefault(_toggleDescriptionService);
+
+	var _highlight_service = __webpack_require__(27);
+
+	var _highlight_service2 = _interopRequireDefault(_highlight_service);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -410,7 +435,15 @@ webpackJsonp_name_([0],[
 	  allArticles = allArticles.map(function (article) {
 	    var li = document.createElement('li');
 
-	    li.innerHTML = '<a href="' + article.url + '">\n                        <h2>' + article.title + '</h2>\n                        <p class="published-at">' + _getDate_service2.default.getDate(article.publishedAt) + '</p>\n                        <img src="' + article.urlToImage + '" alt="image"/>\n                        <p class="descriptor"><span>' + article.description + '</span><p>\n                    </a>';
+	    li.innerHTML = '<a href="' + article.url + '" target="blank">\n                        <h2>' + article.title + '</h2>\n                        <p class="published-at">' + new _getDate_service2.default().getDate(article.publishedAt) + '</p>\n                        <img src="' + article.urlToImage + '" alt="image"/>\n                        <p class="descriptor"><span>' + article.description + '</span><p>\n                    </a>';
+	    li.addEventListener('click', function () {
+	      new _highlight_service2.default().add(li);
+	    });
+
+	    li.highlight = function () {
+	      li.classList.add('highlight');
+	    };
+
 	    return li;
 	  });
 
@@ -469,7 +502,8 @@ webpackJsonp_name_([0],[
 
 /***/ },
 /* 11 */,
-/* 12 */
+/* 12 */,
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -518,7 +552,7 @@ webpackJsonp_name_([0],[
 	}
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -571,6 +605,198 @@ webpackJsonp_name_([0],[
 		},
 		"undefined": 5
 		};
+
+/***/ },
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */,
+/* 24 */,
+/* 25 */,
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _constants = __webpack_require__(8);
+
+	var _marked = [generateSource].map(regeneratorRuntime.mark);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var RequestString = function () {
+	  function RequestString() {
+	    _classCallCheck(this, RequestString);
+	  }
+
+	  RequestString.prototype.getNextSource = function getNextSource() {
+	    return generatorSource.next().value;
+	  };
+
+	  RequestString.prototype.next = function next() {
+	    return this.mainPart + this.getNextSource();
+	  };
+
+	  _createClass(RequestString, [{
+	    key: 'mainPart',
+	    get: function get() {
+	      return 'https://newsapi.org/v1/articles?source=';
+	    }
+	  }]);
+
+	  return RequestString;
+	}();
+
+	exports.default = RequestString;
+
+
+	var generatorSource = generateSource(_constants.sources);
+	function generateSource(sources) {
+	  var _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, source;
+
+	  return regeneratorRuntime.wrap(function generateSource$(_context) {
+	    while (1) {
+	      switch (_context.prev = _context.next) {
+	        case 0:
+	          _iteratorNormalCompletion = true;
+	          _didIteratorError = false;
+	          _iteratorError = undefined;
+	          _context.prev = 3;
+	          _iterator = sources[Symbol.iterator]();
+
+	        case 5:
+	          if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+	            _context.next = 12;
+	            break;
+	          }
+
+	          source = _step.value;
+	          _context.next = 9;
+	          return source;
+
+	        case 9:
+	          _iteratorNormalCompletion = true;
+	          _context.next = 5;
+	          break;
+
+	        case 12:
+	          _context.next = 18;
+	          break;
+
+	        case 14:
+	          _context.prev = 14;
+	          _context.t0 = _context['catch'](3);
+	          _didIteratorError = true;
+	          _iteratorError = _context.t0;
+
+	        case 18:
+	          _context.prev = 18;
+	          _context.prev = 19;
+
+	          if (!_iteratorNormalCompletion && _iterator.return) {
+	            _iterator.return();
+	          }
+
+	        case 21:
+	          _context.prev = 21;
+
+	          if (!_didIteratorError) {
+	            _context.next = 24;
+	            break;
+	          }
+
+	          throw _iteratorError;
+
+	        case 24:
+	          return _context.finish(21);
+
+	        case 25:
+	          return _context.finish(18);
+
+	        case 26:
+	        case 'end':
+	          return _context.stop();
+	      }
+	    }
+	  }, _marked[0], this, [[3, 14, 18, 26], [19,, 21, 25]]);
+		}
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var instance = null;
+
+	var Highlight = function () {
+	  function Highlight() {
+	    _classCallCheck(this, Highlight);
+
+	    if (!instance) {
+	      this.elements = [];
+	      instance = this;
+	    }
+	    return instance;
+	  }
+
+	  Highlight.prototype.highlight = function highlight() {
+	    var _iteratorNormalCompletion = true;
+	    var _didIteratorError = false;
+	    var _iteratorError = undefined;
+
+	    try {
+	      for (var _iterator = this.elements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	        var element = _step.value;
+
+	        element.highlight();
+	      }
+	    } catch (err) {
+	      _didIteratorError = true;
+	      _iteratorError = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion && _iterator.return) {
+	          _iterator.return();
+	        }
+	      } finally {
+	        if (_didIteratorError) {
+	          throw _iteratorError;
+	        }
+	      }
+	    }
+	  };
+
+	  Highlight.prototype.add = function add(element) {
+	    this.elements.push(element);
+	  };
+
+	  Highlight.prototype.remove = function remove(element) {
+	    var i = this.elements.indexOf(element);
+	    this.elements.splice(i, 1);
+	  };
+
+	  return Highlight;
+	}();
+
+		exports.default = Highlight;
 
 /***/ }
 ]);

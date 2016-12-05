@@ -308,11 +308,11 @@ footer p {
 }
 
 
-.add-more-container {
+.add-more-container, .all-visited-container {
     @include flex-center;
 }
 
-.add-more {
+.add-more, .all-visited {
     @include pad(lines(2));
     @include rhythm($padding-leader: 1, $padding-trailer: 1, $leader: 1, $trailer: 1);
     @include font-primary($font-size: 24px);
@@ -328,4 +328,8 @@ footer p {
         background: $teal-dark;
         color: $white;
     }
+}
+
+.highlight {
+  border: 4px solid red !important;
 }

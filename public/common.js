@@ -91,9 +91,10 @@
 /******/ 	__webpack_require__.p = "./";
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 2:
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(fetch) {'use strict';
@@ -114,6 +115,9 @@
 
 	var wrapper = document.querySelector('.articles');
 
+	var cashRequestsStorage = [];
+	var dataStorrage = new Map();
+
 	var Request = function () {
 	    function Request(apiKey, method, url) {
 	        _classCallCheck(this, Request);
@@ -129,13 +133,38 @@
 	        this.headers = headers;
 	    }
 
-	    Request.prototype.getData = function getData() {
+	    Request.prototype.makeRequest = function makeRequest() {
+	        var _this = this;
+
 	        return fetch(this.stringRequest, this.config).then(handleErrors).then(function (data) {
 	            return data.json();
+	        }).then(function (data) {
+	            dataStorrage.set(_this.stringRequest, data);
+	            return data;
 	        }, function (error) {
 	            _customError2.default.init(error, wrapper);
 	            return {};
 	        });
+	    };
+
+	    // implementation of proxy
+
+	    Request.prototype.proxyGetData = function proxyGetData() {
+	        var _this2 = this;
+
+	        var request = cashRequestsStorage.filter(function (item) {
+	            return _this2.stringRequest === item;
+	        });
+	        if (!request.length) {
+	            cashRequestsStorage.push(this.stringRequest);
+	            return this.makeRequest();
+	        } else {
+	            return Promise.resolve(dataStorrage.get(request[0]));
+	        }
+	    };
+
+	    Request.prototype.getData = function getData() {
+	        return this.proxyGetData();
 	    };
 
 	    _createClass(Request, [{
@@ -197,8 +226,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-
-/***/ 3:
+/* 3 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*** IMPORTS FROM imports-loader ***/
@@ -666,8 +694,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-
-/***/ 4:
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -702,8 +729,7 @@
 		exports.default = CustomError;
 
 /***/ },
-
-/***/ 5:
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -735,8 +761,12 @@
 		exports.default = CustomErrorView;
 
 /***/ },
-
-/***/ 11:
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -747,12 +777,19 @@
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+	var instance = null;
+
 	var DateService = function () {
 	    function DateService() {
 	        _classCallCheck(this, DateService);
+
+	        if (!instance) {
+	            instance = this;
+	        }
+	        return instance;
 	    }
 
-	    DateService.getDate = function getDate(date) {
+	    DateService.prototype.getDate = function getDate(date) {
 	        var myDate = new Date(date);
 	        return myDate.getDate() + "." + (myDate.getMonth() + 1) + "." + myDate.getFullYear();
 	    };
@@ -763,8 +800,7 @@
 		exports.default = DateService;
 
 /***/ },
-
-/***/ 25:
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -813,6 +849,5 @@
 		exports.default = ToggleDescription;
 
 /***/ }
-
-/******/ });
+/******/ ]);
 //# sourceMappingURL=common.js.map
